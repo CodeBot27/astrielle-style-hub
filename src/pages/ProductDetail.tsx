@@ -170,7 +170,7 @@ export default function ProductDetail() {
                   {product.title}
                 </h1>
                 <p className="text-2xl font-semibold">
-                  ${product.price.toFixed(2)}
+                  R{product.price.toFixed(2)}
                 </p>
               </div>
 
@@ -241,7 +241,7 @@ export default function ProductDetail() {
               {/* Additional Info */}
               <div className="bg-secondary/30 rounded-lg p-6 space-y-3">
                 <p className="text-sm">
-                  <span className="font-medium">Free Shipping</span> on orders over $150
+                  <span className="font-medium">Free Shipping</span> on orders over R500
                 </p>
                 <p className="text-sm">
                   <span className="font-medium">Easy Returns</span> within 30 days
