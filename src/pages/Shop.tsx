@@ -8,9 +8,9 @@ import { supabase } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
 import type { Product } from '@/types/database';
 
-const CATEGORIES = ['All', 'Women', 'Men', 'Accessories', 'Footwear'];
-const TYPES = ['All', 'Tops', 'Bottoms', 'Dresses', 'Outerwear'];
-const STYLES = ['All', 'Casual', 'Formal', 'Sporty', 'Bohemian'];
+const CATEGORIES = ['All', 'Tops', 'Bottoms', 'Sneakers', 'Accessories'];
+const TYPES = ['All', 'Male', 'Female', 'Youth'];
+const STYLES = ['All', 'Casual', 'SmartCasual', 'Formal', 'Sport'];
 const SORT_OPTIONS = [
   { label: 'Newest', value: 'newest' },
   { label: 'Price: Low to High', value: 'price-asc' },
@@ -25,8 +25,14 @@ export default function Shop() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
 
-  // Filter states
-  const [category, setCategory] = useState(searchParams.get('category') || 'All');
+  // Filter states - capitalize first letter to match filter options
+  const getInitialCategory = () => {
+    const param = searchParams.get('category');
+    if (!param) return 'All';
+    return param.charAt(0).toUpperCase() + param.slice(1);
+  };
+  
+  const [category, setCategory] = useState(getInitialCategory());
   const [type, setType] = useState(searchParams.get('type') || 'All');
   const [style, setStyle] = useState(searchParams.get('style') || 'All');
   const [sort, setSort] = useState(searchParams.get('sort') || 'newest');
@@ -39,15 +45,15 @@ export default function Shop() {
       
       let query = supabase.from('products').select('*');
 
-      // Apply filters
+      // Apply filters (use eq for exact match, case-sensitive)
       if (category !== 'All') {
-        query = query.ilike('category', category);
+        query = query.eq('category', category.toLowerCase());
       }
       if (type !== 'All') {
-        query = query.ilike('type', type);
+        query = query.eq('type', type);
       }
       if (style !== 'All') {
-        query = query.ilike('style', style);
+        query = query.eq('style', style);
       }
       if (searchParams.get('featured') === 'true') {
         query = query.eq('is_featured', true);
@@ -329,7 +335,7 @@ function ProductListItem({ product }: { product: Product }) {
         <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
           {product.description}
         </p>
-        <p className="font-semibold mt-auto">${product.price.toFixed(2)}</p>
+        <p className="font-semibold mt-auto">R{product.price.toFixed(2)}</p>
       </div>
     </div>
   );
