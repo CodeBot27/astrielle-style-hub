@@ -7,6 +7,7 @@ import { useCartStore } from '@/stores/cartStore';
 import { LazyImage } from '@/components/ui/lazy-image';
 import { ProductCardSkeleton } from '@/components/ui/skeleton-loader';
 import { toast } from '@/hooks/use-toast';
+import { Layout } from '@/components/layout/Layout';
 
 export default function Wishlist() {
   const { user } = useAuthStore();
@@ -57,66 +58,79 @@ export default function Wishlist() {
 
   if (!user) {
     return (
-      <div className="min-h-screen pt-24 pb-16">
-        <div className="container-main">
-          <div className="max-w-md mx-auto text-center py-16">
-            <Heart className="w-16 h-16 mx-auto text-muted-foreground mb-6" />
-            <h1 className="text-2xl font-serif font-bold mb-4">Please Sign In</h1>
-            <p className="text-muted-foreground mb-8">
-              Sign in to view and manage your wishlist.
-            </p>
-            <Link
-              to="/auth"
-              className="inline-flex items-center justify-center bg-accent text-accent-foreground px-8 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors"
-            >
-              Sign In
-            </Link>
+      <Layout>
+        <div className="py-20">
+          <div className="container-main">
+            <div className="max-w-md mx-auto text-center py-16">
+              <Heart className="w-16 h-16 mx-auto text-muted-foreground mb-6" />
+              <h1 className="text-2xl font-serif font-bold mb-4">Please Sign In</h1>
+              <p className="text-muted-foreground mb-8">
+                Sign in to view and manage your wishlist.
+              </p>
+              <Link
+                to="/auth"
+                className="inline-flex items-center justify-center bg-accent text-accent-foreground px-8 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors"
+              >
+                Sign In
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
   if (isLoading) {
     return (
-      <div className="min-h-screen pt-24 pb-16">
-        <div className="container-main">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold mb-8">My Wishlist</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (
-              <ProductCardSkeleton key={i} />
-            ))}
+      <Layout>
+        <div className="py-8 md:py-12">
+          <div className="container-main">
+            <h1 className="text-3xl md:text-4xl font-serif font-bold mb-8">My Wishlist</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, i) => (
+                <ProductCardSkeleton key={i} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen pt-24 pb-16">
-        <div className="container-main">
-          <div className="max-w-md mx-auto text-center py-16">
-            <Heart className="w-16 h-16 mx-auto text-muted-foreground mb-6" />
-            <h1 className="text-2xl font-serif font-bold mb-4">Your Wishlist is Empty</h1>
-            <p className="text-muted-foreground mb-8">
-              Save items you love to your wishlist and find them here anytime.
-            </p>
-            <Link
-              to="/shop"
-              className="inline-flex items-center justify-center bg-accent text-accent-foreground px-8 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors"
-            >
-              Continue Shopping
-            </Link>
+      <Layout>
+        <div className="py-20">
+          <div className="container-main">
+            <div className="max-w-md mx-auto text-center py-16">
+              <Heart className="w-16 h-16 mx-auto text-muted-foreground mb-6" />
+              <h1 className="text-2xl font-serif font-bold mb-4">Your Wishlist is Empty</h1>
+              <p className="text-muted-foreground mb-8">
+                Save items you love to your wishlist and find them here anytime.
+              </p>
+              <Link
+                to="/shop"
+                className="inline-flex items-center justify-center bg-accent text-accent-foreground px-8 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors"
+              >
+                Continue Shopping
+              </Link>
+              <Link
+                to="/"
+                className="inline-flex items-center justify-center mx-4 bg-accent text-accent-foreground px-8 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors"
+              >
+                Go Home
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
-      <div className="container-main">
+    <Layout>
+      <div className="py-8 md:py-12">
+        <div className="container-main">
         <h1 className="text-3xl md:text-4xl font-serif font-bold mb-8">
           My Wishlist ({items.length} {items.length === 1 ? 'item' : 'items'})
         </h1>
@@ -173,5 +187,6 @@ export default function Wishlist() {
         </div>
       </div>
     </div>
+  </Layout>
   );
 }
