@@ -91,7 +91,7 @@ export default function About() {
               </div>
               <div className="absolute -bottom-6 -left-6 bg-accent text-accent-foreground p-6 rounded-xl">
                 <p className="text-3xl font-serif font-semibold">2019</p>
-                <p className="text-sm">Est. in Paris</p>
+                <p className="text-sm">Est. in South Africa</p>
               </div>
             </div>
           </div>
