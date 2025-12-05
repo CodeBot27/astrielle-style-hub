@@ -102,7 +102,7 @@ export function Hero() {
             {/* Floating Badge */}
             <div className="absolute -left-8 top-1/2 bg-background shadow-xl rounded-2xl p-4 animate-float">
               <p className="font-serif text-lg font-semibold">New In</p>
-              <p className="text-sm text-muted-foreground">Spring 2024</p>
+              <p className="text-sm text-muted-foreground">Spring 2025</p>
             </div>
           </div>
         </div>

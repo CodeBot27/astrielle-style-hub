@@ -115,7 +115,7 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              © {currentYear} Astrielle. All rights reserved.
+              © {currentYear} Astrielle. All rights reserved. Made by<a href="https://github.com/kxngzero329" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors"> Mogamat Smith.</a>
             </p>
             <div className="flex items-center space-x-6">
               <Link to="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
