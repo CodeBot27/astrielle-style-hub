@@ -3,28 +3,28 @@ import { ArrowUpRight } from 'lucide-react';
 
 const categories = [
   {
-    name: 'Women',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop',
-    href: '/shop?category=women',
-    count: '120+ items',
+    name: 'Tops',
+    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop',
+    href: '/shop?category=tops',
+    count: 'Shirts, Tees & More',
   },
   {
-    name: 'Men',
-    image: 'https://images.unsplash.com/photo-1507680434567-5739c80be1ac?w=600&h=800&fit=crop',
-    href: '/shop?category=men',
-    count: '85+ items',
+    name: 'Bottoms',
+    image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&h=800&fit=crop',
+    href: '/shop?category=bottoms',
+    count: 'Jeans, Pants & Skirts',
+  },
+  {
+    name: 'Sneakers',
+    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=800&fit=crop',
+    href: '/shop?category=sneakers',
+    count: 'Athletic & Casual',
   },
   {
     name: 'Accessories',
     image: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=800&fit=crop',
     href: '/shop?category=accessories',
-    count: '200+ items',
-  },
-  {
-    name: 'Footwear',
-    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=800&fit=crop',
-    href: '/shop?category=footwear',
-    count: '95+ items',
+    count: 'Bags, Watches & More',
   },
 ];
 
