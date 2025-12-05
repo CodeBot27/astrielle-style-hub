@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, ShoppingBag, User, Sun, Moon, LogOut } from 'lucide-react';
+import { Menu, X, ShoppingBag, User, Sun, Moon, LogOut, Heart } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 import { useCartStore } from '@/stores/cartStore';
+import { useWishlistStore } from '@/stores/wishlistStore';
 import { useThemeStore } from '@/stores/themeStore';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/logo';
 import { toast } from '@/hooks/use-toast';
-
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,7 +16,14 @@ export function Navbar() {
   
   const { user, profile, signOut } = useAuthStore();
   const { getItemCount } = useCartStore();
+  const { items: wishlistItems, fetchWishlist } = useWishlistStore();
   const { theme, toggleTheme } = useThemeStore();
+
+  useEffect(() => {
+    if (user) {
+      fetchWishlist(user.id);
+    }
+  }, [user, fetchWishlist]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,6 +103,20 @@ export function Navbar() {
                   <Sun className="w-5 h-5" />
                 )}
               </button>
+
+              {user && (
+                <Link
+                  to="/wishlist"
+                  className="relative p-2 hover:bg-secondary rounded-full transition-colors"
+                >
+                  <Heart className="w-5 h-5" />
+                  {wishlistItems.length > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-accent-foreground text-xs font-medium rounded-full flex items-center justify-center">
+                      {wishlistItems.length}
+                    </span>
+                  )}
+                </Link>
+              )}
 
               <Link
                 to="/cart"
@@ -202,6 +223,12 @@ export function Navbar() {
             
             {user ? (
               <>
+                <Link
+                  to="/wishlist"
+                  className="block px-4 py-3 rounded-lg font-medium hover:bg-secondary/50 transition-colors"
+                >
+                  My Wishlist
+                </Link>
                 <Link
                   to="/orders"
                   className="block px-4 py-3 rounded-lg font-medium hover:bg-secondary/50 transition-colors"
