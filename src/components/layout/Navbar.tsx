@@ -137,9 +137,11 @@ export function Navbar() {
                     className="flex items-center space-x-2 text-sm font-medium hover:text-accent transition-colors"
                   >
                     <User className="w-5 h-5" />
-                    <span>
-                      {profile?.name ? `Hi, ${profile.name}` : 'Account'}
-                    </span>
+                  <span>
+                    {profile?.name
+                      ? `${profile.name}${profile?.surname ? ` ${profile.surname}` : ''}`
+                      : (user?.user_metadata?.name ?? user?.user_metadata?.full_name ?? user?.email ?? 'Account')}
+                  </span>
                   </Link>
                   <button
                     onClick={handleSignOut}
@@ -254,7 +256,7 @@ export function Navbar() {
 
           <div className="p-4 border-t border-border">
             <p className="text-sm text-muted-foreground text-center">
-              © 2024 Astrielle
+              © 2025 Astrielle
             </p>
           </div>
         </div>
