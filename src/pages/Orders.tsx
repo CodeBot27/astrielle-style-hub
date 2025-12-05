@@ -176,7 +176,7 @@ export default function Orders() {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <p className="font-semibold">${order.total.toFixed(2)}</p>
+                      <p className="font-semibold">R{order.total.toFixed(2)}</p>
                       <ChevronRight className="w-5 h-5 text-muted-foreground" />
                     </div>
                   </button>
@@ -245,7 +245,7 @@ export default function Orders() {
                               {item.products?.title || 'Product'}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              Qty: {item.quantity} × ${item.price.toFixed(2)}
+                              Qty: {item.quantity} × R{item.price.toFixed(2)}
                             </p>
                           </div>
                         </div>
@@ -256,7 +256,7 @@ export default function Orders() {
                   <div className="border-t border-border pt-4">
                     <div className="flex justify-between font-semibold text-lg">
                       <span>Total</span>
-                      <span>${selectedOrder.total.toFixed(2)}</span>
+                      <span>R{selectedOrder.total.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
