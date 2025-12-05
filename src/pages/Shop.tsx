@@ -6,6 +6,7 @@ import { ProductGrid } from '@/components/products/ProductGrid';
 import { ProductCard } from '@/components/products/ProductCard';
 import { supabase } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
 import type { Product } from '@/types/database';
 
 const CATEGORIES = ['All', 'Tops', 'Bottoms', 'Sneakers', 'Accessories'];
@@ -173,19 +174,19 @@ export default function Shop() {
                 </button>
 
                 {/* Sort Dropdown */}
-                <div className="relative">
-                  <select
-                    value={sort}
-                    onChange={(e) => handleFilterChange('sort', e.target.value)}
-                    className="appearance-none bg-transparent border border-border rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-1 focus:ring-accent cursor-pointer"
-                  >
-                    {SORT_OPTIONS.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
+                <div className="w-56">
+                  <Select value={sort} onValueChange={(v) => handleFilterChange('sort', v)}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SORT_OPTIONS.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* View Mode Toggle */}
