@@ -3,20 +3,20 @@ import { ArrowUpRight } from 'lucide-react';
 
 const categories = [
   {
-    name: 'Tops',
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=800&fit=crop',
-    href: '/shop?category=tops',
-    count: 'Shirts, Tees & More',
+    name: 'Men',
+    image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600&h=800&fit=crop',
+    href: '/shop?type=Male',
+    count: 'Shirts, Pants & More',
   },
   {
-    name: 'Bottoms',
-    image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&h=800&fit=crop',
-    href: '/shop?category=bottoms',
-    count: 'Jeans, Pants & Skirts',
+    name: 'Women',
+    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=800&fit=crop',
+    href: '/shop?type=Female',
+    count: 'Dresses, Tops & More',
   },
   {
     name: 'Sneakers',
-    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&h=800&fit=crop',
+    image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=800&fit=crop',
     href: '/shop?category=sneakers',
     count: 'Athletic & Casual',
   },
