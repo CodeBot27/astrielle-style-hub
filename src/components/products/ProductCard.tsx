@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { LazyImage } from '@/components/ui/lazy-image';
 import { useAuthStore } from '@/stores/authStore';
 import { useCartStore } from '@/stores/cartStore';
+import { useWishlistStore } from '@/stores/wishlistStore';
 import { toast } from '@/hooks/use-toast';
 import type { Product } from '@/types/database';
 
@@ -15,6 +16,9 @@ interface ProductCardProps {
 export function ProductCard({ product, className }: ProductCardProps) {
   const { user } = useAuthStore();
   const { addToCart } = useCartStore();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlistStore();
+
+  const inWishlist = isInWishlist(product.id);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -45,6 +49,44 @@ export function ProductCard({ product, className }: ProductCardProps) {
     }
   };
 
+  const handleWishlistToggle = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!user) {
+      toast({
+        title: 'Please sign in',
+        description: 'You need to be signed in to add items to your wishlist.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (inWishlist) {
+      const { error } = await removeFromWishlist(user.id, product.id);
+      if (!error) {
+        toast({
+          title: 'Removed from wishlist',
+          description: `${product.title} has been removed from your wishlist.`,
+        });
+      }
+    } else {
+      const { error } = await addToWishlist(user.id, product.id);
+      if (error) {
+        toast({
+          title: 'Error',
+          description: 'Failed to add item to wishlist.',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Added to wishlist',
+          description: `${product.title} has been added to your wishlist.`,
+        });
+      }
+    }
+  };
+
   return (
     <Link
       to={`/product/${product.id}`}
@@ -71,11 +113,16 @@ export function ProductCard({ product, className }: ProductCardProps) {
               Add to Cart
             </button>
             <button
-              onClick={(e) => e.preventDefault()}
-              className="p-3 bg-background/95 backdrop-blur-sm rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors"
-              aria-label="Add to wishlist"
+              onClick={handleWishlistToggle}
+              className={cn(
+                "p-3 backdrop-blur-sm rounded-lg transition-colors",
+                inWishlist 
+                  ? "bg-accent text-accent-foreground" 
+                  : "bg-background/95 hover:bg-accent hover:text-accent-foreground"
+              )}
+              aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
             >
-              <Heart className="w-4 h-4" />
+              <Heart className={cn("w-4 h-4", inWishlist && "fill-current")} />
             </button>
           </div>
 
