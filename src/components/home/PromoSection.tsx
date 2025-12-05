@@ -40,17 +40,17 @@ export function PromoSection() {
             <div className="relative p-8 md:p-12 min-h-[400px] flex flex-col justify-between">
               <div>
                 <span className="inline-block px-3 py-1 bg-foreground text-background text-xs font-medium rounded-full mb-4">
-                  New Arrival
+                  New Arrivals
                 </span>
                 <h3 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-2">
-                  Summer Essentials
+                  Youth Essentials
                 </h3>
                 <p className="text-foreground/70 max-w-xs">
-                  Discover lightweight fabrics and breezy silhouettes for the warmer days ahead.
+                  Discover the latest trends and styles for the younger generation.
                 </p>
               </div>
               <Link
-                to="/shop?type=summer"
+                to="/shop?type=Youth"
                 className="inline-flex items-center text-sm font-medium border-b border-foreground/50 hover:border-foreground transition-colors pb-1 w-fit text-foreground"
               >
                 Explore Collection
