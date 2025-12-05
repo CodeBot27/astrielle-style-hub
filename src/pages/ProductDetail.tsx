@@ -134,7 +134,7 @@ export default function ProductDetail() {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Image Gallery */}
             <div className="space-y-4">
-              <div className="aspect-[4/5] overflow-hidden rounded-xl bg-secondary">
+              <div className="aspect-[3.7/4] overflow-hidden rounded-xl bg-secondary">
                 <img
                   src={images[activeImage]}
                   alt={product.title}
