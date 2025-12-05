@@ -240,9 +240,9 @@ export default function Contact() {
                       Astrielle Flagship Store
                     </h3>
                     <p className="text-muted-foreground text-sm mb-4">
-                      123 Fashion Avenue
+                      101 Hokage Street
                       <br />
-                      New York, NY 10001
+                      Cape Town - South Africa
                     </p>
                     <a
                       href="https://maps.google.com"
