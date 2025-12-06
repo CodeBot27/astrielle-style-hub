@@ -17,7 +17,7 @@ export function ProductGrid({
   columns = 4 
 }: ProductGridProps) {
   if (isLoading) {
-    return <ProductGridSkeleton count={8} />;
+    return <ProductGridSkeleton count={9} columns={columns} />;
   }
 
   if (products.length === 0) {
