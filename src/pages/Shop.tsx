@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Filter, Grid, List } from 'lucide-react';
+import { Filter, Grid, List, ShoppingBag, Heart } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { ProductCard } from '@/components/products/ProductCard';
@@ -8,6 +8,10 @@ import { ProductListItemSkeleton } from '@/components/ui/skeleton-loader';
 import { supabase } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
+import { useAuthStore } from '@/stores/authStore';
+import { useCartStore } from '@/stores/cartStore';
+import { useWishlistStore } from '@/stores/wishlistStore';
+import { toast } from '@/hooks/use-toast';
 import type { Product } from '@/types/database';
 
 const CATEGORIES = ['All', 'Tops', 'Bottoms', 'Sneakers', 'Accessories'];
@@ -330,17 +334,95 @@ function FilterSection({
 }
 
 function ProductListItem({ product }: { product: Product }) {
+  const { user } = useAuthStore();
+  const { addToCart } = useCartStore();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlistStore();
+
+  const inWishlist = isInWishlist(product.id);
+
+  const handleAddToCart = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!user) {
+      toast({
+        title: 'Please sign in',
+        description: 'You need to be signed in to add items to your cart.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    const { error } = await addToCart(user.id, product);
+    
+    if (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to add item to cart. Please try again.',
+        variant: 'destructive',
+      });
+    } else {
+      toast({
+        title: 'Added to cart',
+        description: `${product.title} has been added to your cart.`,
+      });
+    }
+  };
+
+  const handleWishlistToggle = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!user) {
+      toast({
+        title: 'Please sign in',
+        description: 'You need to be signed in to add items to your wishlist.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (inWishlist) {
+      const { error } = await removeFromWishlist(user.id, product.id);
+      if (!error) {
+        toast({
+          title: 'Removed from wishlist',
+          description: `${product.title} has been removed from your wishlist.`,
+        });
+      }
+    } else {
+      const { error } = await addToWishlist(user.id, product.id);
+      if (error) {
+        toast({
+          title: 'Error',
+          description: 'Failed to add item to wishlist.',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Added to wishlist',
+          description: `${product.title} has been added to your wishlist.`,
+        });
+      }
+    }
+  };
+
   return (
     <Link 
       to={`/product/${product.id}`}
       className="flex gap-6 p-4 border border-border rounded-lg hover:shadow-lg hover:border-accent/50 transition-all group"
     >
-      <div className="w-32 h-40 flex-shrink-0 overflow-hidden rounded-lg bg-secondary">
+      <div className="w-32 h-40 flex-shrink-0 overflow-hidden rounded-lg bg-secondary relative">
         <img
           src={product.image || '/placeholder.svg'}
           alt={product.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        {product.is_featured && (
+          <span className="absolute top-2 left-2 bg-accent text-accent-foreground text-xs font-medium px-2 py-0.5 rounded-full">
+            Featured
+          </span>
+        )}
       </div>
       <div className="flex-1 flex flex-col">
         <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
@@ -350,7 +432,30 @@ function ProductListItem({ product }: { product: Product }) {
         <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
           {product.description}
         </p>
-        <p className="font-semibold mt-auto">R{product.price.toFixed(2)}</p>
+        <div className="flex items-center justify-between mt-auto">
+          <p className="font-semibold">R{product.price.toFixed(2)}</p>
+          <div className="flex gap-2">
+            <button
+              onClick={handleAddToCart}
+              className="flex items-center gap-2 bg-primary text-primary-foreground py-2 px-4 rounded-lg font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              Add to Cart
+            </button>
+            <button
+              onClick={handleWishlistToggle}
+              className={cn(
+                "p-2 rounded-lg border transition-colors",
+                inWishlist 
+                  ? "bg-accent text-accent-foreground border-accent" 
+                  : "border-border hover:bg-accent hover:text-accent-foreground hover:border-accent"
+              )}
+              aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
+            >
+              <Heart className={cn("w-4 h-4", inWishlist && "fill-current")} />
+            </button>
+          </div>
+        </div>
       </div>
     </Link>
   );
