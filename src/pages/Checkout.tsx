@@ -124,7 +124,7 @@ export default function Checkout() {
   }
 
   const subtotal = getTotal();
-  const shipping = subtotal > 150 ? 0 : 15;
+  const shipping = subtotal > 500 ? 0 : 15;
   const total = subtotal + shipping;
 
   return (
@@ -271,7 +271,7 @@ export default function Checkout() {
                             Qty: {item.quantity}
                           </p>
                           <p className="text-sm font-medium mt-1">
-                            ${(item.products.price * item.quantity).toFixed(2)}
+                            R{(item.products.price * item.quantity).toFixed(2)}
                           </p>
                         </div>
                       </div>
@@ -281,18 +281,18 @@ export default function Checkout() {
                   <div className="border-t border-border pt-4 space-y-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span>${subtotal.toFixed(2)}</span>
+                      <span>R{subtotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Shipping</span>
-                      <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+                      <span>{shipping === 0 ? 'Free' : `R${shipping.toFixed(2)}`}</span>
                     </div>
                   </div>
 
                   <div className="border-t border-border pt-4">
                     <div className="flex justify-between font-semibold text-lg">
                       <span>Total</span>
-                      <span>${total.toFixed(2)}</span>
+                      <span>R{total.toFixed(2)}</span>
                     </div>
                   </div>
 
@@ -301,7 +301,7 @@ export default function Checkout() {
                     disabled={isSubmitting}
                     className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? 'Processing...' : `Pay $${total.toFixed(2)}`}
+                    {isSubmitting ? 'Processing...' : `Pay R${total.toFixed(2)}`}
                   </button>
                 </div>
               </div>
