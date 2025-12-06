@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Filter, Grid, List, ChevronDown } from 'lucide-react';
+import { Filter, Grid, List } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { ProductCard } from '@/components/products/ProductCard';
+import { ProductListItemSkeleton } from '@/components/ui/skeleton-loader';
 import { supabase } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
@@ -242,8 +243,18 @@ export default function Shop() {
               )}
 
               {/* Products */}
-              {viewMode === 'grid' ? (
-                <ProductGrid products={paginatedProducts} isLoading={isLoading} columns={3} />
+              {isLoading ? (
+                viewMode === 'grid' ? (
+                  <ProductGrid products={[]} isLoading={true} columns={3} />
+                ) : (
+                  <div className="space-y-4">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <ProductListItemSkeleton key={i} />
+                    ))}
+                  </div>
+                )
+              ) : viewMode === 'grid' ? (
+                <ProductGrid products={paginatedProducts} isLoading={false} columns={3} />
               ) : (
                 <div className="space-y-4">
                   {paginatedProducts.map((product) => (
