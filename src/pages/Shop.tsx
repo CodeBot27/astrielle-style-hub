@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Filter, Grid, List } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { ProductGrid } from '@/components/products/ProductGrid';
@@ -331,24 +331,27 @@ function FilterSection({
 
 function ProductListItem({ product }: { product: Product }) {
   return (
-    <div className="flex gap-6 p-4 border border-border rounded-lg hover:shadow-lg transition-shadow">
+    <Link 
+      to={`/product/${product.id}`}
+      className="flex gap-6 p-4 border border-border rounded-lg hover:shadow-lg hover:border-accent/50 transition-all group"
+    >
       <div className="w-32 h-40 flex-shrink-0 overflow-hidden rounded-lg bg-secondary">
         <img
           src={product.image || '/placeholder.svg'}
           alt={product.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
       <div className="flex-1 flex flex-col">
         <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
           {product.category}
         </p>
-        <h3 className="font-medium text-lg mb-2">{product.title}</h3>
+        <h3 className="font-medium text-lg mb-2 group-hover:text-accent transition-colors">{product.title}</h3>
         <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
           {product.description}
         </p>
         <p className="font-semibold mt-auto">R{product.price.toFixed(2)}</p>
       </div>
-    </div>
+    </Link>
   );
 }
