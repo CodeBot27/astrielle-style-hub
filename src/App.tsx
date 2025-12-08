@@ -20,6 +20,10 @@ import Auth from "./pages/Auth";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import FAQ from "./pages/FAQ";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ShippingAndReturns from "./pages/ShippingAndReturns";
+import SizeGuide from "./pages/SizeGuide";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +53,10 @@ function AppContent() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/shipping-and-returns" element={<ShippingAndReturns />} />
+        <Route path="/size-guide" element={<SizeGuide />} />
         <Route
           path="/cart"
           element={

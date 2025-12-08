@@ -68,11 +68,11 @@ export function Footer() {
             <h4 className="font-serif text-lg font-semibold mb-4">Customer Service</h4>
             <ul className="space-y-3">
               {[
-                { label: 'Shipping & Returns', href: '#' },
-                { label: 'Size Guide', href: '#' },
-                { label: 'FAQs', href: '#' },
+                { label: 'Shipping & Returns', href: '/shipping-and-returns' },
+                { label: 'Size Guide', href: '/size-guide' },
+                { label: 'FAQs', href: '/faq' },
                 { label: 'Track Order', href: '/orders' },
-                { label: 'Privacy Policy', href: '#' },
+                { label: 'Privacy Policy', href: '/privacy-policy' },
               ].map((link) => (
                 <li key={link.label}>
                   <Link
