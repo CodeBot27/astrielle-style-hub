@@ -249,7 +249,7 @@ export default function Shop() {
               {/* Products */}
               {isLoading ? (
                 viewMode === 'grid' ? (
-                  <ProductGrid products={[]} isLoading={true} columns={3} />
+                  <ProductGrid products={[]} isLoading={true} columns={4} />
                 ) : (
                   <div className="space-y-4">
                     {Array.from({ length: 6 }).map((_, i) => (
@@ -258,7 +258,7 @@ export default function Shop() {
                   </div>
                 )
               ) : viewMode === 'grid' ? (
-                <ProductGrid products={paginatedProducts} isLoading={false} columns={3} />
+                <ProductGrid products={paginatedProducts} isLoading={false} columns={4} />
               ) : (
                 <div className="space-y-4">
                   {paginatedProducts.map((product) => (
