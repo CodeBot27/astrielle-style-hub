@@ -440,7 +440,7 @@ function ProductListItem({ product }: { product: Product }) {
               className="flex items-center gap-2 bg-primary text-primary-foreground py-2 px-4 rounded-lg font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
             >
               <ShoppingBag className="w-4 h-4" />
-              Add to Cart
+              <span className="hidden sm:inline">Add to Cart</span>
             </button>
             <button
               onClick={handleWishlistToggle}
