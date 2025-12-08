@@ -273,7 +273,10 @@ export default function Shop() {
                   {Array.from({ length: totalPages }).map((_, i) => (
                     <button
                       key={i}
-                      onClick={() => setCurrentPage(i + 1)}
+                      onClick={() => {
+                        setCurrentPage(i + 1);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
                       className={cn(
                         'w-10 h-10 rounded-lg font-medium transition-colors',
                         currentPage === i + 1
